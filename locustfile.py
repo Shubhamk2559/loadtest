@@ -9,11 +9,10 @@ class U(HttpUser):
         with self.client.get(
             "/f/IJEFAbg3",
             name="/f/token",
+            allow_redirects=False,
             catch_response=True,
         ) as r:
-            if r.status_code == 200:
+            if r.status_code in (200, 302):
                 r.success()
-            elif r.status_code in (429, 403):
-                r.failure(f"blocked {r.status_code}")
             else:
                 r.failure(f"status {r.status_code}")
